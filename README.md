@@ -4,11 +4,18 @@ KeebLab is a 3D mechanical keyboard store project. The first milestone is a depe
 
 ## Run Locally
 
-Open `index.html` in a browser.
+Install dependencies and start Next.js:
+
+```powershell
+npm install
+npm run dev
+```
+
+Then open `http://localhost:3000`.
 
 ## Current Scope
 
-- Static storefront
+- Next.js storefront
 - Persisted product catalog with admin create/edit/delete
 - Inventory-aware products with checkout stock decrement
 - Product catalog filtering and search
