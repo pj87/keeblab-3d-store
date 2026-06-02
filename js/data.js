@@ -8,6 +8,7 @@
       basePrice: 219,
       colorClass: "case-onyx",
       status: "Active",
+      stockQuantity: 8,
     },
     {
       id: "kl-65-phantom",
@@ -17,6 +18,7 @@
       basePrice: 179,
       colorClass: "case-forest",
       status: "Active",
+      stockQuantity: 5,
     },
     {
       id: "kl-tkl-forge",
@@ -26,6 +28,7 @@
       basePrice: 199,
       colorClass: "case-clay",
       status: "Active",
+      stockQuantity: 3,
     },
     {
       id: "retro-keycaps",
@@ -35,6 +38,7 @@
       basePrice: 69,
       colorClass: "case-silver",
       status: "Draft",
+      stockQuantity: 12,
     },
   ];
 

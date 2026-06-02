@@ -2,11 +2,11 @@
   const {
     buildCode,
     byId,
+    canBuyProduct,
     formatDelta,
     formatMoney,
     optionSets,
     persistState,
-    products,
     selected,
     selectedProduct,
     state,
@@ -16,7 +16,8 @@
   function renderProducts() {
     const grid = byId("productGrid");
     const query = state.search.toLowerCase();
-    const filtered = products.filter((product) => {
+    const filtered = state.products.filter((product) => {
+      if (product.status !== "Active") return false;
       const matchesCategory = state.category === "all" || product.category === state.category;
       const matchesSearch = `${product.name} ${product.summary}`.toLowerCase().includes(query);
       return matchesCategory && matchesSearch;
@@ -31,10 +32,11 @@
           <div>
             <h3>${product.name}</h3>
             <p>${product.summary}</p>
+            <span class="stock-pill ${product.stockQuantity > 0 ? "" : "empty"}">${product.stockQuantity > 0 ? `${product.stockQuantity} in stock` : "Sold out"}</span>
           </div>
           <div class="price-row">
             <span class="price">${formatMoney(product.basePrice)}</span>
-            <button class="button" type="button" ${product.category === "keyboards" ? `data-configure="${product.id}"` : `data-quick-add="${product.id}"`}>
+            <button class="button" type="button" ${canBuyProduct(product) ? (product.category === "keyboards" ? `data-configure="${product.id}"` : `data-quick-add="${product.id}"`) : "disabled"}>
               ${product.category === "keyboards" ? "Configure" : "Add"}
             </button>
           </div>
@@ -50,14 +52,19 @@
   function renderAdmin() {
     byId("adminTable").innerHTML = `
       <div class="admin-row header">
-        <span>Product</span><span>Category</span><span>Status</span><span>Price</span>
+        <span>Product</span><span>Category</span><span>Status</span><span>Stock</span><span>Price</span><span>Actions</span>
       </div>
-      ${products.map((product) => `
+      ${state.products.map((product) => `
         <div class="admin-row">
           <strong>${product.name}</strong>
           <span>${product.category}</span>
           <span>${product.status}</span>
+          <span>${product.stockQuantity}</span>
           <span>${formatMoney(product.basePrice)}</span>
+          <span class="admin-actions">
+            <button class="button" type="button" data-edit-product="${product.id}">Edit</button>
+            <button class="button" type="button" data-delete-product="${product.id}">Delete</button>
+          </span>
         </div>
       `).join("")}
     `;
@@ -88,10 +95,11 @@
   }
 
   function renderProductSelect() {
-    byId("productSelect").innerHTML = products
-      .filter((product) => product.category === "keyboards")
+    const keyboardProducts = state.products.filter((product) => product.category === "keyboards" && canBuyProduct(product));
+    byId("productSelect").innerHTML = keyboardProducts
       .map((product) => `<option value="${product.id}">${product.name}</option>`)
       .join("");
+    byId("productSelect").disabled = keyboardProducts.length === 0;
   }
 
   function renderOptions(containerId, setName, activeId, stateKey) {
@@ -124,6 +132,20 @@
     const keycaps = selected("keycaps", state.keycaps);
     const keyboard = byId("configuredKeyboard");
 
+    if (!product) {
+      byId("viewerName").textContent = "No keyboard selected";
+      byId("configSlug").textContent = "empty";
+      byId("configName").textContent = "Create a keyboard product";
+      byId("configSummary").textContent = "Use the admin panel to add an active keyboard product.";
+      byId("basePrice").textContent = "$0";
+      byId("layoutPrice").textContent = "+$0";
+      byId("switchPrice").textContent = "+$0";
+      byId("keycapPrice").textContent = "+$0";
+      byId("colorName").textContent = "Onyx";
+      byId("totalPrice").textContent = "$0";
+      byId("buildCode").textContent = "NO-PRODUCT";
+      return;
+    }
     byId("productSelect").value = product.id;
     byId("viewerName").textContent = product.name;
     byId("configSlug").textContent = product.id;
@@ -196,6 +218,28 @@
       : "WebGPU is not available in this browser or context. The stable WebGL viewer remains active for product inspection.";
   }
 
+  function resetAdminForm() {
+    byId("adminProductId").value = "";
+    byId("adminProductName").value = "";
+    byId("adminProductCategory").value = "keyboards";
+    byId("adminProductPrice").value = "";
+    byId("adminProductStatus").value = "Active";
+    byId("adminProductStock").value = "";
+    byId("adminProductSummary").value = "";
+    byId("adminProductColor").value = "case-onyx";
+  }
+
+  function fillAdminForm(product) {
+    byId("adminProductId").value = product.id;
+    byId("adminProductName").value = product.name;
+    byId("adminProductCategory").value = product.category;
+    byId("adminProductPrice").value = product.basePrice;
+    byId("adminProductStatus").value = product.status;
+    byId("adminProductStock").value = product.stockQuantity;
+    byId("adminProductSummary").value = product.summary;
+    byId("adminProductColor").value = product.colorClass;
+  }
+
   window.KeebLabUI = {
     closeCart,
     openCart,
@@ -207,5 +251,7 @@
     renderProductSelect,
     renderSavedConfigs,
     renderWebGpuStatus,
+    fillAdminForm,
+    resetAdminForm,
   };
 })();

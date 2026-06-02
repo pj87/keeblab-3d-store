@@ -225,6 +225,52 @@
               <h2>Catalog controls</h2>
             </div>
           </div>
+          <form class="admin-form" id="adminProductForm">
+            <input type="hidden" id="adminProductId" />
+            <label>
+              <span>Name</span>
+              <input id="adminProductName" required placeholder="KL-80 Studio" />
+            </label>
+            <label>
+              <span>Category</span>
+              <select id="adminProductCategory">
+                <option value="keyboards">Keyboards</option>
+                <option value="parts">Parts</option>
+              </select>
+            </label>
+            <label>
+              <span>Price</span>
+              <input id="adminProductPrice" required min="1" step="1" type="number" placeholder="249" />
+            </label>
+            <label>
+              <span>Status</span>
+              <select id="adminProductStatus">
+                <option value="Active">Active</option>
+                <option value="Draft">Draft</option>
+              </select>
+            </label>
+            <label>
+              <span>Stock</span>
+              <input id="adminProductStock" required min="0" step="1" type="number" placeholder="10" />
+            </label>
+            <label class="admin-form-wide">
+              <span>Summary</span>
+              <input id="adminProductSummary" required placeholder="Premium keyboard with..." />
+            </label>
+            <label>
+              <span>Visual</span>
+              <select id="adminProductColor">
+                <option value="case-onyx">Onyx</option>
+                <option value="case-silver">Silver</option>
+                <option value="case-forest">Forest</option>
+                <option value="case-clay">Clay</option>
+              </select>
+            </label>
+            <div class="admin-form-actions">
+              <button class="button primary" type="submit">Save product</button>
+              <button class="button" id="adminResetForm" type="button">New product</button>
+            </div>
+          </form>
           <div class="admin-table" id="adminTable"></div>
         </div>
       </section>

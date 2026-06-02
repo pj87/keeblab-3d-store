@@ -4,12 +4,14 @@
     byId,
     changeCartQuantity,
     createOrderFromCart,
+    deleteProduct,
     loadConfiguration,
     persistState,
     quickAddProduct,
     removeCartItem,
     saveCurrentConfiguration,
     state,
+    upsertProduct,
   } = window.KeebLabStore;
 
   const {
@@ -17,10 +19,14 @@
     openCart,
     renderCart,
     renderConfigurator,
+    renderAdmin,
     renderOrders,
     renderProducts,
+    renderProductSelect,
     renderSavedConfigs,
     renderWebGpuStatus,
+    fillAdminForm,
+    resetAdminForm,
   } = window.KeebLabUI;
 
   function bindEvents() {
@@ -49,7 +55,8 @@
       }
 
       if (quickAddButton) {
-        quickAddProduct(quickAddButton.dataset.quickAdd);
+        const productId = quickAddProduct(quickAddButton.dataset.quickAdd);
+        if (!productId) return;
         renderCart();
         openCart();
       }
@@ -93,7 +100,12 @@
     });
 
     byId("addToCart").addEventListener("click", () => {
-      addCurrentBuildToCart();
+      const code = addCurrentBuildToCart();
+      if (!code) {
+        byId("checkoutState").textContent = "Create a keyboard product before adding a build.";
+        openCart();
+        return;
+      }
       byId("checkoutState").textContent = "";
       renderCart();
       openCart();
@@ -101,6 +113,7 @@
 
     byId("saveConfig").addEventListener("click", () => {
       const code = saveCurrentConfiguration();
+      if (!code) return;
       persistState();
       renderSavedConfigs();
       byId("checkoutState").textContent = `Saved ${code} locally.`;
@@ -126,16 +139,20 @@
     });
 
     byId("checkoutButton").addEventListener("click", () => {
-      const orderId = createOrderFromCart();
-      if (!orderId) {
-        byId("checkoutState").textContent = "Add a build before checkout.";
+      const result = createOrderFromCart();
+      if (!result.ok) {
+        byId("checkoutState").textContent = result.message;
         return;
       }
 
       renderCart();
       renderOrders();
+      renderProducts();
+      renderProductSelect();
+      renderConfigurator();
+      renderAdmin();
       persistState();
-      byId("checkoutState").textContent = `Checkout simulated. Order #${orderId} created.`;
+      byId("checkoutState").textContent = `Checkout simulated. Order #${result.orderId} created.`;
     });
 
     byId("savedConfigList").addEventListener("click", (event) => {
@@ -144,6 +161,48 @@
       loadConfiguration(Number(button.dataset.loadConfig));
       renderConfigurator();
       location.hash = "builder";
+    });
+
+    byId("adminProductForm").addEventListener("submit", (event) => {
+      event.preventDefault();
+      upsertProduct({
+        id: byId("adminProductId").value,
+        name: byId("adminProductName").value,
+        category: byId("adminProductCategory").value,
+        basePrice: byId("adminProductPrice").value,
+        status: byId("adminProductStatus").value,
+        stockQuantity: byId("adminProductStock").value,
+        summary: byId("adminProductSummary").value,
+        colorClass: byId("adminProductColor").value,
+      });
+      persistState();
+      renderAdmin();
+      renderProducts();
+      renderProductSelect();
+      renderConfigurator();
+      resetAdminForm();
+    });
+
+    byId("adminResetForm").addEventListener("click", resetAdminForm);
+
+    byId("adminTable").addEventListener("click", (event) => {
+      const editButton = event.target.closest("[data-edit-product]");
+      const deleteButton = event.target.closest("[data-delete-product]");
+
+      if (editButton) {
+        const product = state.products.find((item) => item.id === editButton.dataset.editProduct);
+        if (product) fillAdminForm(product);
+      }
+
+      if (deleteButton) {
+        deleteProduct(deleteButton.dataset.deleteProduct);
+        persistState();
+        renderAdmin();
+        renderProducts();
+        renderProductSelect();
+        renderConfigurator();
+        renderCart();
+      }
     });
   }
 

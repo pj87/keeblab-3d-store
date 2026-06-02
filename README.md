@@ -9,6 +9,8 @@ Open `index.html` in a browser.
 ## Current Scope
 
 - Static storefront
+- Persisted product catalog with admin create/edit/delete
+- Inventory-aware products with checkout stock decrement
 - Product catalog filtering and search
 - Product configurator with layout, color, switch, and keycap options
 - Cart drawer and simulated checkout

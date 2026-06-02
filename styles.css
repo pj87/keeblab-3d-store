@@ -560,6 +560,28 @@ h3 {
   padding: 15px;
 }
 
+.stock-pill {
+  width: fit-content;
+  display: inline-flex;
+  margin-top: 8px;
+  padding: 4px 8px;
+  border: 1px solid rgba(143, 209, 79, 0.35);
+  border-radius: var(--radius);
+  color: var(--green);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.stock-pill.empty {
+  border-color: rgba(240, 106, 88, 0.38);
+  color: var(--red);
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
+}
+
 .price-row {
   display: flex;
   justify-content: space-between;
@@ -746,12 +768,62 @@ select {
 }
 
 .admin-row {
-  grid-template-columns: 1fr 120px 110px 90px;
+  grid-template-columns: 1fr 110px 90px 80px 90px 128px;
 }
 
 .admin-row.header {
   background: rgba(255, 255, 255, 0.04);
   font-weight: 800;
+}
+
+.admin-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.admin-actions button {
+  min-height: 32px;
+  padding: 6px 9px;
+}
+
+.admin-form {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: rgba(255, 255, 255, 0.035);
+}
+
+.admin-form label {
+  display: grid;
+  gap: 6px;
+}
+
+.admin-form span {
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.admin-form input {
+  min-height: 42px;
+  padding: 0 12px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--panel-strong);
+  color: var(--text);
+}
+
+.admin-form-wide {
+  grid-column: span 2;
+}
+
+.admin-form-actions {
+  display: flex;
+  gap: 10px;
+  align-items: end;
 }
 
 .cart-drawer {
@@ -894,5 +966,13 @@ select {
   .order-list article,
   .admin-row {
     grid-template-columns: 1fr;
+  }
+
+  .admin-form {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-form-wide {
+    grid-column: auto;
   }
 }
