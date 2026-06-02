@@ -392,6 +392,31 @@ function bindEvents() {
     renderConfigurator();
   });
 
+  document.querySelectorAll("[data-viewer-mode]").forEach((button) => {
+    button.addEventListener("click", () => {
+      const mode = button.dataset.viewerMode;
+      document.querySelectorAll("[data-viewer-mode]").forEach((tab) => tab.classList.remove("active"));
+      button.classList.add("active");
+      byId("webglViewer").classList.toggle("hidden", mode !== "webgl");
+      byId("webgpuPanel").classList.toggle("hidden", mode !== "webgpu");
+      if (mode === "webgpu") renderWebGpuStatus();
+    });
+  });
+
+  document.querySelectorAll("[data-viewer-action]").forEach((button) => {
+    button.addEventListener("click", () => {
+      if (!window.keebViewer) return;
+      const action = button.dataset.viewerAction;
+      if (action === "reset") {
+        window.keebViewer.reset();
+        return;
+      }
+      const active = button.classList.toggle("active");
+      if (action === "autorotate") window.keebViewer.setAutoRotate(active);
+      if (action === "explode") window.keebViewer.setExploded(active);
+    });
+  });
+
   byId("addToCart").addEventListener("click", addCurrentBuildToCart);
   byId("saveConfig").addEventListener("click", () => {
     const product = selectedProduct();
@@ -469,6 +494,14 @@ function bindEvents() {
     renderConfigurator();
     location.hash = "configurator";
   });
+}
+
+function renderWebGpuStatus() {
+  const supported = Boolean(navigator.gpu);
+  byId("webgpuBadge").textContent = supported ? "Available" : "Unavailable";
+  byId("webgpuStatus").textContent = supported
+    ? "This browser exposes WebGPU. The next step is a dedicated procedural material preview."
+    : "WebGPU is not available in this browser or context. The stable WebGL viewer remains active for product inspection.";
 }
 
 function init() {

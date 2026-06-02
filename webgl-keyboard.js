@@ -18,6 +18,8 @@ const viewerState = {
   caseColor: [0.07, 0.09, 0.12],
   keycapTheme: "dark-pbt",
   layout: "75",
+  autoRotate: false,
+  exploded: false,
 };
 
 const vertexShaderSource = `
@@ -206,6 +208,9 @@ function render() {
 
   viewerState.rotationX += (viewerState.targetX - viewerState.rotationX) * 0.12;
   viewerState.rotationY += (viewerState.targetY - viewerState.rotationY) * 0.12;
+  if (viewerState.autoRotate && !viewerState.dragging) {
+    viewerState.targetY += 0.008;
+  }
 
   const aspect = canvas.width / canvas.height;
   const projection = perspective(Math.PI / 4, aspect, 0.1, 100);
@@ -216,8 +221,9 @@ function render() {
   const columns = layoutColumns();
   const boardWidth = columns * 0.48 + 0.8;
   const boardDepth = 2.6;
+  const explode = viewerState.exploded ? 0.34 : 0;
   drawBox([0, 0, 0], [boardWidth, 0.34, boardDepth], viewerState.caseColor);
-  drawBox([0, 0.22, 0], [boardWidth - 0.26, 0.08, boardDepth - 0.26], [
+  drawBox([0, 0.22 + explode * 0.45, 0], [boardWidth - 0.26, 0.08, boardDepth - 0.26], [
     viewerState.caseColor[0] + 0.04,
     viewerState.caseColor[1] + 0.04,
     viewerState.caseColor[2] + 0.04,
@@ -232,7 +238,8 @@ function render() {
       const width = wide ? 0.72 : 0.36;
       const x = (col - columns / 2 + 0.5) * 0.46;
       const z = (row - rows / 2 + 0.5) * 0.52;
-      drawBox([x, 0.46, z], [width, 0.2, 0.34], keycapColor(keyIndex));
+      const rowLift = viewerState.exploded ? 0.12 * row : 0;
+      drawBox([x, 0.46 + explode + rowLift, z], [width, 0.2, 0.34], keycapColor(keyIndex));
       keyIndex += 1;
     }
   }
@@ -313,6 +320,16 @@ window.keebViewer = {
     if (options.caseColor) viewerState.caseColor = hexToRgb(options.caseColor);
     if (options.layout) viewerState.layout = options.layout;
     if (options.keycaps) viewerState.keycapTheme = options.keycaps;
+  },
+  reset() {
+    viewerState.targetX = -0.72;
+    viewerState.targetY = -0.58;
+  },
+  setAutoRotate(enabled) {
+    viewerState.autoRotate = enabled;
+  },
+  setExploded(enabled) {
+    viewerState.exploded = enabled;
   },
 };
 

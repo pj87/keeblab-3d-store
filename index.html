@@ -91,12 +91,12 @@
           <div class="panel-header">
             <span id="viewerName">KL-75 Aurora</span>
             <div class="view-tabs" role="tablist" aria-label="Viewer mode">
-              <button class="view-tab active" type="button">3D</button>
-              <button class="view-tab" type="button">WebGPU</button>
+              <button class="view-tab active" type="button" data-viewer-mode="webgl">3D</button>
+              <button class="view-tab" type="button" data-viewer-mode="webgpu">WebGPU</button>
             </div>
           </div>
           <div class="product-visual detail-visual">
-            <div class="webgl-viewer" aria-label="Interactive 3D keyboard viewer">
+            <div class="webgl-viewer" id="webglViewer" aria-label="Interactive 3D keyboard viewer">
               <canvas id="keyboardCanvas"></canvas>
               <div class="viewer-fallback" id="viewerFallback">
                 <div class="keyboard-case case-onyx" id="configuredKeyboard">
@@ -105,7 +105,26 @@
                   <span class="key wide"></span><span class="key light"></span><span class="key light"></span><span class="key dark"></span><span class="key light"></span><span class="key wide accent"></span><span class="key light"></span><span class="key light"></span><span class="key light"></span><span class="key dark"></span><span class="key wide"></span><span class="key light"></span>
                 </div>
               </div>
-              <div class="viewer-hint">Drag to rotate</div>
+              <div class="viewer-controls" aria-label="3D viewer controls">
+                <button class="viewer-control" type="button" data-viewer-action="autorotate">Auto rotate</button>
+                <button class="viewer-control" type="button" data-viewer-action="explode">Explode</button>
+                <button class="viewer-control" type="button" data-viewer-action="reset">Reset</button>
+              </div>
+              <div class="viewer-hint" id="viewerHint">Drag to rotate</div>
+            </div>
+            <div class="webgpu-panel hidden" id="webgpuPanel">
+              <div>
+                <p class="eyebrow">Experimental</p>
+                <h3>WebGPU material preview</h3>
+                <p id="webgpuStatus">Checking WebGPU support...</p>
+              </div>
+              <div class="webgpu-card">
+                <span>Status</span>
+                <strong id="webgpuBadge">Pending</strong>
+              </div>
+              <div class="webgpu-meter">
+                <span></span>
+              </div>
             </div>
             <div class="keyboard-scene large hidden" aria-hidden="true">
               <div class="keyboard-case case-onyx">
