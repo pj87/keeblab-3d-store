@@ -1,6 +1,11 @@
 const canvas = document.getElementById("keyboardCanvas");
 const fallback = document.getElementById("viewerFallback");
 
+const defaultPitch = 0.72;
+const defaultYaw = -0.58;
+const minPitch = -1.35;
+const maxPitch = 1.35;
+
 const viewerState = {
   gl: null,
   program: null,
@@ -8,10 +13,10 @@ const viewerState = {
   normalBuffer: null,
   indexBuffer: null,
   locations: null,
-  rotationX: -0.72,
-  rotationY: -0.58,
-  targetX: -0.72,
-  targetY: -0.58,
+  rotationX: defaultPitch,
+  rotationY: defaultYaw,
+  targetX: defaultPitch,
+  targetY: defaultYaw,
   dragging: false,
   lastX: 0,
   lastY: 0,
@@ -262,7 +267,7 @@ function bindInteraction() {
     viewerState.lastX = event.clientX;
     viewerState.lastY = event.clientY;
     viewerState.targetY += dx * 0.01;
-    viewerState.targetX = Math.max(-1.15, Math.min(-0.25, viewerState.targetX + dy * 0.01));
+    viewerState.targetX = Math.max(minPitch, Math.min(maxPitch, viewerState.targetX + dy * 0.01));
   });
 
   canvas.addEventListener("pointerup", () => {
@@ -322,8 +327,8 @@ window.keebViewer = {
     if (options.keycaps) viewerState.keycapTheme = options.keycaps;
   },
   reset() {
-    viewerState.targetX = -0.72;
-    viewerState.targetY = -0.58;
+    viewerState.targetX = defaultPitch;
+    viewerState.targetY = defaultYaw;
   },
   setAutoRotate(enabled) {
     viewerState.autoRotate = enabled;
