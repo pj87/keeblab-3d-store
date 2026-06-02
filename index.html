@@ -96,8 +96,19 @@
             </div>
           </div>
           <div class="product-visual detail-visual">
-            <div class="keyboard-scene large" aria-hidden="true">
-              <div class="keyboard-case case-onyx" id="configuredKeyboard">
+            <div class="webgl-viewer" aria-label="Interactive 3D keyboard viewer">
+              <canvas id="keyboardCanvas"></canvas>
+              <div class="viewer-fallback" id="viewerFallback">
+                <div class="keyboard-case case-onyx" id="configuredKeyboard">
+                  <span class="key dark"></span><span class="key light"></span><span class="key light"></span><span class="key accent"></span><span class="key light"></span><span class="key light"></span><span class="key dark"></span><span class="key light"></span><span class="key light"></span><span class="key accent"></span><span class="key light"></span><span class="key light"></span><span class="key light"></span><span class="key dark"></span>
+                  <span class="key light"></span><span class="key dark"></span><span class="key light"></span><span class="key light"></span><span class="key light"></span><span class="key accent"></span><span class="key light"></span><span class="key light"></span><span class="key dark"></span><span class="key light"></span><span class="key light"></span><span class="key light"></span><span class="key accent"></span><span class="key light"></span>
+                  <span class="key wide"></span><span class="key light"></span><span class="key light"></span><span class="key dark"></span><span class="key light"></span><span class="key wide accent"></span><span class="key light"></span><span class="key light"></span><span class="key light"></span><span class="key dark"></span><span class="key wide"></span><span class="key light"></span>
+                </div>
+              </div>
+              <div class="viewer-hint">Drag to rotate</div>
+            </div>
+            <div class="keyboard-scene large hidden" aria-hidden="true">
+              <div class="keyboard-case case-onyx">
                 <span class="key dark"></span><span class="key light"></span><span class="key light"></span><span class="key accent"></span><span class="key light"></span><span class="key light"></span><span class="key dark"></span><span class="key light"></span><span class="key light"></span><span class="key accent"></span><span class="key light"></span><span class="key light"></span><span class="key light"></span><span class="key dark"></span>
                 <span class="key light"></span><span class="key dark"></span><span class="key light"></span><span class="key light"></span><span class="key light"></span><span class="key accent"></span><span class="key light"></span><span class="key light"></span><span class="key dark"></span><span class="key light"></span><span class="key light"></span><span class="key light"></span><span class="key accent"></span><span class="key light"></span>
                 <span class="key wide"></span><span class="key light"></span><span class="key light"></span><span class="key dark"></span><span class="key light"></span><span class="key wide accent"></span><span class="key light"></span><span class="key light"></span><span class="key light"></span><span class="key dark"></span><span class="key wide"></span><span class="key light"></span>
@@ -105,9 +116,9 @@
             </div>
           </div>
           <div class="viewer-meta">
-            <span>Orbit preview</span>
-            <span>Material state</span>
-            <span>Fallback ready</span>
+            <span>Native WebGL</span>
+            <span>Configurator synced</span>
+            <span>CSS fallback</span>
           </div>
         </div>
 
@@ -219,6 +230,7 @@
   </aside>
   <div class="scrim" id="scrim"></div>
 
+  <script src="webgl-keyboard.js"></script>
   <script src="app.js"></script>
 </body>
 </html>

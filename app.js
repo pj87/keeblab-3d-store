@@ -264,6 +264,13 @@ function renderConfigurator() {
   byId("totalPrice").textContent = currency.format(totalPrice());
   byId("buildCode").textContent = buildCode();
   keyboard.className = `keyboard-case ${color.className}`;
+  if (window.keebViewer) {
+    window.keebViewer.update({
+      caseColor: color.value,
+      layout: layout.id,
+      keycaps: keycaps.id,
+    });
+  }
 
   renderOptions("layoutOptions", "layouts", state.layout, "layout");
   renderOptions("switchOptions", "switches", state.switches, "switches");

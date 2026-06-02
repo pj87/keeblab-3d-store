@@ -305,6 +305,54 @@ h3 {
   min-height: 560px;
 }
 
+.hidden {
+  display: none;
+}
+
+.webgl-viewer {
+  position: relative;
+  min-height: 560px;
+  background:
+    linear-gradient(145deg, rgba(34, 193, 182, 0.1), transparent 45%),
+    linear-gradient(315deg, rgba(143, 209, 79, 0.12), transparent 45%),
+    var(--band);
+}
+
+.webgl-viewer canvas {
+  width: 100%;
+  height: 560px;
+  display: block;
+  cursor: grab;
+}
+
+.webgl-viewer canvas:active {
+  cursor: grabbing;
+}
+
+.viewer-fallback {
+  position: absolute;
+  inset: 0;
+  display: none;
+  place-items: center;
+  padding: 40px 24px;
+}
+
+.viewer-fallback.active {
+  display: grid;
+}
+
+.viewer-hint {
+  position: absolute;
+  right: 14px;
+  bottom: 14px;
+  padding: 7px 10px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: rgba(10, 12, 16, 0.76);
+  color: var(--muted);
+  font-size: 12px;
+}
+
 .keyboard-case {
   width: min(82%, 670px);
   aspect-ratio: 2.35 / 1;
