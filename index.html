@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="KeebLab is a 3D mechanical keyboard store with configurable boards, switches, keycaps, and layouts." />
+  <title>KeebLab | 3D Keyboard Store</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <a class="brand" href="#storefront" aria-label="KeebLab home">
+        <span class="brand-mark" aria-hidden="true">K</span>
+        <span>KeebLab</span>
+      </a>
+
+      <nav class="nav" aria-label="Main navigation">
+        <a href="#catalog">Products</a>
+        <a href="#configurator">Build</a>
+        <a href="#orders">Orders</a>
+        <a href="#admin">Admin</a>
+      </nav>
+
+      <div class="top-actions">
+        <label class="search-wrap" for="search">
+          <span aria-hidden="true">Search</span>
+          <input id="search" type="search" placeholder="Search keyboards, switches, keycaps" autocomplete="off" />
+        </label>
+        <button class="icon-button" id="accountButton" type="button" aria-label="Account">A</button>
+        <button class="cart-button" id="cartButton" type="button">
+          <span aria-hidden="true">Cart</span>
+          <span>Cart</span>
+          <strong id="cartCount">0</strong>
+        </button>
+      </div>
+    </header>
+
+    <main id="storefront">
+      <section class="hero-band">
+        <div class="hero-copy">
+          <p class="eyebrow">Custom mechanical keyboards</p>
+          <h1>KeebLab</h1>
+          <p>
+            Configure a board, inspect the build, and move from product choice to checkout without leaving the store.
+          </p>
+          <div class="hero-actions">
+            <a class="button primary" href="#configurator">Start a build</a>
+            <a class="button" href="#catalog">Browse catalog</a>
+          </div>
+        </div>
+
+        <div class="product-visual hero-visual" aria-label="KL-75 Aurora preview">
+          <div class="visual-toolbar">
+            <span>KL-75 Aurora</span>
+            <span id="heroPrice">$219</span>
+          </div>
+          <div class="keyboard-scene" aria-hidden="true">
+            <div class="keyboard-case case-onyx">
+              <span class="key dark"></span><span class="key light"></span><span class="key light"></span><span class="key accent"></span><span class="key light"></span><span class="key light"></span><span class="key dark"></span><span class="key light"></span><span class="key light"></span><span class="key accent"></span><span class="key light"></span><span class="key light"></span><span class="key light"></span><span class="key dark"></span>
+              <span class="key light"></span><span class="key dark"></span><span class="key light"></span><span class="key light"></span><span class="key light"></span><span class="key accent"></span><span class="key light"></span><span class="key light"></span><span class="key dark"></span><span class="key light"></span><span class="key light"></span><span class="key light"></span><span class="key accent"></span><span class="key light"></span>
+              <span class="key wide"></span><span class="key light"></span><span class="key light"></span><span class="key dark"></span><span class="key light"></span><span class="key wide accent"></span><span class="key light"></span><span class="key light"></span><span class="key light"></span><span class="key dark"></span><span class="key wide"></span><span class="key light"></span>
+            </div>
+          </div>
+          <div class="visual-footer">
+            <span>75%</span>
+            <span>Aluminum</span>
+            <span>Hot-swap</span>
+            <span>RGB</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="catalog">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Catalog</p>
+            <h2>Featured products</h2>
+          </div>
+          <div class="segmented" role="tablist" aria-label="Product category filter">
+            <button class="segment active" type="button" data-category="all">All</button>
+            <button class="segment" type="button" data-category="keyboards">Keyboards</button>
+            <button class="segment" type="button" data-category="parts">Parts</button>
+          </div>
+        </div>
+        <div class="product-grid" id="productGrid"></div>
+      </section>
+
+      <section class="section configurator-layout" id="configurator">
+        <div class="viewer-panel">
+          <div class="panel-header">
+            <span id="viewerName">KL-75 Aurora</span>
+            <div class="view-tabs" role="tablist" aria-label="Viewer mode">
+              <button class="view-tab active" type="button">3D</button>
+              <button class="view-tab" type="button">WebGPU</button>
+            </div>
+          </div>
+          <div class="product-visual detail-visual">
+            <div class="keyboard-scene large" aria-hidden="true">
+              <div class="keyboard-case case-onyx" id="configuredKeyboard">
+                <span class="key dark"></span><span class="key light"></span><span class="key light"></span><span class="key accent"></span><span class="key light"></span><span class="key light"></span><span class="key dark"></span><span class="key light"></span><span class="key light"></span><span class="key accent"></span><span class="key light"></span><span class="key light"></span><span class="key light"></span><span class="key dark"></span>
+                <span class="key light"></span><span class="key dark"></span><span class="key light"></span><span class="key light"></span><span class="key light"></span><span class="key accent"></span><span class="key light"></span><span class="key light"></span><span class="key dark"></span><span class="key light"></span><span class="key light"></span><span class="key light"></span><span class="key accent"></span><span class="key light"></span>
+                <span class="key wide"></span><span class="key light"></span><span class="key light"></span><span class="key dark"></span><span class="key light"></span><span class="key wide accent"></span><span class="key light"></span><span class="key light"></span><span class="key light"></span><span class="key dark"></span><span class="key wide"></span><span class="key light"></span>
+              </div>
+            </div>
+          </div>
+          <div class="viewer-meta">
+            <span>Orbit preview</span>
+            <span>Material state</span>
+            <span>Fallback ready</span>
+          </div>
+        </div>
+
+        <aside class="config-panel" aria-label="Product configurator">
+          <p class="breadcrumb">Products / Keyboards / <span id="configSlug">kl-75-aurora</span></p>
+          <h2 id="configName">KL-75 Aurora</h2>
+          <p class="product-summary" id="configSummary">Premium 75% aluminum keyboard with hot-swap PCB and gasket mount.</p>
+
+          <div class="control-group">
+            <div class="control-label">
+              <span>Product</span>
+              <strong id="basePrice">$219</strong>
+            </div>
+            <select id="productSelect" aria-label="Select product"></select>
+          </div>
+
+          <div class="control-group">
+            <div class="control-label">
+              <span>Layout</span>
+              <strong id="layoutPrice">+$0</strong>
+            </div>
+            <div class="option-grid" id="layoutOptions"></div>
+          </div>
+
+          <div class="control-group">
+            <div class="control-label">
+              <span>Case color</span>
+              <strong id="colorName">Onyx</strong>
+            </div>
+            <div class="swatches" id="colorOptions"></div>
+          </div>
+
+          <div class="control-group">
+            <div class="control-label">
+              <span>Switches</span>
+              <strong id="switchPrice">+$0</strong>
+            </div>
+            <div class="option-grid" id="switchOptions"></div>
+          </div>
+
+          <div class="control-group">
+            <div class="control-label">
+              <span>Keycaps</span>
+              <strong id="keycapPrice">+$0</strong>
+            </div>
+            <div class="option-grid" id="keycapOptions"></div>
+          </div>
+
+          <div class="summary-box">
+            <div><span>Configured total</span><strong id="totalPrice">$219</strong></div>
+            <div><span>Build code</span><strong id="buildCode">KL75-ON-LR-DK</strong></div>
+          </div>
+
+          <div class="purchase-actions">
+            <button class="button primary full" id="addToCart" type="button">Add to cart</button>
+            <button class="button full" id="saveConfig" type="button">Save configuration</button>
+          </div>
+        </aside>
+      </section>
+
+      <section class="section split-section">
+        <div id="orders">
+          <div class="section-heading compact">
+            <div>
+              <p class="eyebrow">Account</p>
+              <h2>Order history</h2>
+            </div>
+          </div>
+          <div class="order-list" id="orderList"></div>
+          <div class="saved-configs">
+            <div class="section-heading compact">
+              <div>
+                <p class="eyebrow">Saved</p>
+                <h2>Configurations</h2>
+              </div>
+            </div>
+            <div class="order-list" id="savedConfigList"></div>
+          </div>
+        </div>
+
+        <div id="admin">
+          <div class="section-heading compact">
+            <div>
+              <p class="eyebrow">Admin</p>
+              <h2>Catalog controls</h2>
+            </div>
+          </div>
+          <div class="admin-table" id="adminTable"></div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <aside class="cart-drawer" id="cartDrawer" aria-label="Shopping cart" aria-hidden="true">
+    <div class="cart-header">
+      <div>
+        <p class="eyebrow">Cart</p>
+        <h2>Your build list</h2>
+      </div>
+      <button class="icon-button" id="closeCart" type="button" aria-label="Close cart">X</button>
+    </div>
+    <div class="cart-items" id="cartItems"></div>
+    <div class="cart-total">
+      <span>Total</span>
+      <strong id="cartTotal">$0</strong>
+    </div>
+    <button class="button primary full" id="checkoutButton" type="button">Checkout</button>
+    <p class="checkout-state" id="checkoutState" aria-live="polite"></p>
+  </aside>
+  <div class="scrim" id="scrim"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
