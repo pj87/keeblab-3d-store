@@ -15,6 +15,15 @@ Open `index.html` in a browser.
 - Account order preview
 - Admin catalog preview
 
+## JavaScript Structure
+
+- `js/data.js` contains mock catalog and option data
+- `js/store.js` owns state, selectors, cart actions, saved configurations, orders, and persistence
+- `js/ui.js` renders DOM views from state
+- `js/events.js` binds user interactions
+- `webgl-keyboard.js` owns the native WebGL product viewer
+- `app.js` boots the storefront
+
 ## Roadmap
 
 - Move the storefront into Next.js and TypeScript
