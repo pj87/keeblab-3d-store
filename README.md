@@ -20,6 +20,7 @@ Open `index.html` in a browser.
 - `js/data.js` contains mock catalog and option data
 - `js/store.js` owns state, selectors, cart actions, saved configurations, orders, and persistence
 - `js/ui.js` renders DOM views from state
+- `js/router.js` controls hash-based app views
 - `js/events.js` binds user interactions
 - `webgl-keyboard.js` owns the native WebGL product viewer
 - `app.js` boots the storefront

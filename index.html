@@ -10,16 +10,16 @@
 <body>
   <div class="app-shell">
     <header class="topbar">
-      <a class="brand" href="#storefront" aria-label="KeebLab home">
+      <a class="brand" href="#home" data-route-link="home" aria-label="KeebLab home">
         <span class="brand-mark" aria-hidden="true">K</span>
         <span>KeebLab</span>
       </a>
 
       <nav class="nav" aria-label="Main navigation">
-        <a href="#catalog">Products</a>
-        <a href="#configurator">Build</a>
-        <a href="#orders">Orders</a>
-        <a href="#admin">Admin</a>
+        <a href="#catalog" data-route-link="catalog">Products</a>
+        <a href="#builder" data-route-link="builder">Build</a>
+        <a href="#account" data-route-link="account">Orders</a>
+        <a href="#admin" data-route-link="admin">Admin</a>
       </nav>
 
       <div class="top-actions">
@@ -37,7 +37,7 @@
     </header>
 
     <main id="storefront">
-      <section class="hero-band">
+      <section class="hero-band app-view" data-view="home">
         <div class="hero-copy">
           <p class="eyebrow">Custom mechanical keyboards</p>
           <h1>KeebLab</h1>
@@ -45,8 +45,8 @@
             Configure a board, inspect the build, and move from product choice to checkout without leaving the store.
           </p>
           <div class="hero-actions">
-            <a class="button primary" href="#configurator">Start a build</a>
-            <a class="button" href="#catalog">Browse catalog</a>
+            <a class="button primary" href="#builder" data-route-link="builder">Start a build</a>
+            <a class="button" href="#catalog" data-route-link="catalog">Browse catalog</a>
           </div>
         </div>
 
@@ -71,7 +71,7 @@
         </div>
       </section>
 
-      <section class="section" id="catalog">
+      <section class="section app-view" id="catalog" data-view="catalog">
         <div class="section-heading">
           <div>
             <p class="eyebrow">Catalog</p>
@@ -86,7 +86,7 @@
         <div class="product-grid" id="productGrid"></div>
       </section>
 
-      <section class="section configurator-layout" id="configurator">
+      <section class="section configurator-layout app-view" id="configurator" data-view="builder">
         <div class="viewer-panel">
           <div class="panel-header">
             <span id="viewerName">KL-75 Aurora</span>
@@ -198,8 +198,8 @@
         </aside>
       </section>
 
-      <section class="section split-section">
-        <div id="orders">
+      <section class="section split-section account-admin-shell" data-account-admin-shell>
+        <div class="app-view" id="orders" data-view="account">
           <div class="section-heading compact">
             <div>
               <p class="eyebrow">Account</p>
@@ -218,7 +218,7 @@
           </div>
         </div>
 
-        <div id="admin">
+        <div class="app-view" id="admin" data-view="admin">
           <div class="section-heading compact">
             <div>
               <p class="eyebrow">Admin</p>
@@ -252,6 +252,7 @@
   <script src="js/data.js"></script>
   <script src="js/store.js"></script>
   <script src="js/ui.js"></script>
+  <script src="js/router.js"></script>
   <script src="js/events.js"></script>
   <script src="webgl-keyboard.js"></script>
   <script src="app.js"></script>

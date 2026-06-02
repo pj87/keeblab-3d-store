@@ -45,7 +45,7 @@
       if (configureButton) {
         state.productId = configureButton.dataset.configure;
         renderConfigurator();
-        location.hash = "configurator";
+        location.hash = "builder";
       }
 
       if (quickAddButton) {
@@ -104,7 +104,7 @@
       persistState();
       renderSavedConfigs();
       byId("checkoutState").textContent = `Saved ${code} locally.`;
-      location.hash = "orders";
+      location.hash = "account";
     });
 
     byId("cartButton").addEventListener("click", openCart);
@@ -143,7 +143,7 @@
       if (!button) return;
       loadConfiguration(Number(button.dataset.loadConfig));
       renderConfigurator();
-      location.hash = "configurator";
+      location.hash = "builder";
     });
   }
 

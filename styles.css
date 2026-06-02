@@ -189,6 +189,18 @@ main {
   padding: 28px clamp(16px, 4vw, 42px) 54px;
 }
 
+.app-view {
+  display: none;
+}
+
+.app-view.active-view {
+  display: grid;
+}
+
+.nav a.active-route {
+  color: var(--text);
+}
+
 .hero-band {
   min-height: calc(100vh - 128px);
   display: grid;
@@ -682,6 +694,14 @@ select {
 .split-section {
   grid-template-columns: 0.9fr 1.1fr;
   align-items: start;
+}
+
+.account-admin-shell {
+  display: none;
+}
+
+.account-admin-shell.active-shell {
+  display: grid;
 }
 
 .order-list {

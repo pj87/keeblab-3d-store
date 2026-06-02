@@ -1,6 +1,7 @@
 (function bootKeebLab() {
   const { loadState } = window.KeebLabStore;
   const { bindEvents } = window.KeebLabEvents;
+  const { renderRoute } = window.KeebLabRouter;
   const {
     renderAdmin,
     renderCart,
@@ -21,6 +22,7 @@
     renderConfigurator();
     renderCart();
     bindEvents();
+    renderRoute();
   }
 
   init();
